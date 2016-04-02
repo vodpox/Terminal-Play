@@ -1,6 +1,6 @@
 all: build/libterminalplay.a
 
-build/libterminalplay.a: obj/Game.o obj/Graphics.o
+build/libterminalplay.a: obj/Game.o obj/Graphics.o obj/Input.o
 	mkdir -p build/
 	ar rcs build/libterminalplay.a obj/*
 
@@ -11,6 +11,10 @@ obj/Game.o: src/Game.cpp src/Game.h
 obj/Graphics.o: src/Graphics.cpp src/Graphics.h
 	mkdir -p obj/
 	g++ -std=c++11 -c src/Graphics.cpp -o obj/Graphics.o
+
+obj/Input.o: src/Input.cpp src/Input.h
+	mkdir -p obj/
+	g++ -std=c++11 -c src/Input.cpp -o obj/Input.o
 
 clean:
 	rm -rf obj/

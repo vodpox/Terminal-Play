@@ -1,8 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Graphics.h"
 #include "Scene.h"
+#include "Graphics.h"
+#include "Input.h"
 
 class Game{
 	
@@ -12,7 +13,7 @@ class Game{
 	
 	public:
 		Graphics graphics;
-		//Input input;
+		Input input;
 		
 		void setScene(Scene *newScene);
 		void loop();
