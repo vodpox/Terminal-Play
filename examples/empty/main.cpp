@@ -7,7 +7,7 @@ public:
   Game *game;
   TScene(Game game) : game(&game) {}
   void update(){
-    if(game->input.getButton(game->input.KeyCode::a)) printf("\033[2;31mHello World\033[0m\n");
+    if(game->input.getButton(Keyboard::a)) printf("\033[2;31mHello World\033[0m\n");
   }
 };
 
