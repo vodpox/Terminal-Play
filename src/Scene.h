@@ -5,7 +5,7 @@ class Scene{
 	
 	public:
 		virtual void update(){}
-	
+		virtual void draw(){}
 };
 
 #endif

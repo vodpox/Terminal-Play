@@ -9,6 +9,7 @@ void Game::loop(){
 	while(!quitGame){
 		graphics.updateSize();
 		currentScene->update();
+		currentScene->draw();
 	}
 }
 
