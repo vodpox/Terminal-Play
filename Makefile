@@ -9,6 +9,7 @@ build/libterminalplay.a: $(CPP) $(H)
 	mv *.o ./obj/
 	mkdir -p build/
 	ar rcs build/libterminalplay.a obj/*
+	rm -f src/*.gch
 
 clean:
 	rm -rf obj/
