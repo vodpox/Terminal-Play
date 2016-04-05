@@ -10,23 +10,20 @@ class TScene : public Scene {
 	  Game *game;
 	  TScene(Game game) : game(&game) {}
 	  void update(){
-	    if(game->input.getButton(Keyboard::upArrow)){
+	    if(game->input.getButton(Keyboard::W)){
 				y--;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::downArrow)){
+			else if(game->input.getButton(Keyboard::S)){
 				y++;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::leftArrow)){
+			else if(game->input.getButton(Keyboard::A)){
 				x--;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::rightArrow)){
+			else if(game->input.getButton(Keyboard::D)){
 				x++;
-				doDraw = true;
-			}
-			else if(game->input.getButton(Keyboard::a)){
 				doDraw = true;
 			}
 	  }
