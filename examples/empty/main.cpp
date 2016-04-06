@@ -8,21 +8,21 @@ class TScene : public Scene {
 		int x = 5;
 		int y = 5;
 	  Game *game;
-	  TScene(Game game) : game(&game) {}
+	  TScene(Game &game) : game(&game) {}
 	  void update(){
-	    if(game->input.getButton(Keyboard::W)){
+	    if(game->input.isButtonDown(Keyboard::UP_ARROW)){
 				y--;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::S)){
+			else if(game->input.isButtonDown(Keyboard::DOWN_ARROW)){
 				y++;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::A)){
+			else if(game->input.isButtonDown(Keyboard::LEFT_ARROW)){
 				x--;
 				doDraw = true;
 			}
-			else if(game->input.getButton(Keyboard::D)){
+			else if(game->input.isButtonDown(Keyboard::RIGHT_ARROW)){
 				x++;
 				doDraw = true;
 			}

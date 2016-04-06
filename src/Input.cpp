@@ -2,41 +2,24 @@
 #include <cstdio>
 
 
-bool Input::getButton(Keyboard key){
-	int input;
-	input = getc(stdin);
+void Input::getInput(){
+	for(int i = 0; i < 3; i++){
+		input[i] = getc(stdin);
+	}
+}
+
+bool Input::isButtonDown(Keyboard key){
+	if(input[1] != -1){ // escaped buttons
+		if(input[1] == 91){ // arrows
+			if(input[2] == key) return true;
+			else return false;
+		}
+	}
 	
-	if(input >= 97 && input <= 122){ // lowercase letters
-		if( input - 97 == key ) return true;
-		else return false;
+	if(input[0] >= 97 && input[0] <= 122){ // convert lowercase to uppercase
+		input[0] -= 32;
 	}
-
-	if(input >= 65 && input <= 90){ // uppercase letters
-		if( input - 65 == key ) return true;
-		else return false;
-	}
-
-	if(input >= 48 && input <= 57){ // numbers
-		if( ((input - 48) + 52) == key ) return true;
-		else return false;
-	}
-
-	if(input == 32){ // spacebar
-		if( Keyboard::SPACEBAR == key ) return true;
-		else return false;
-	}
-
-	if(input == 27){ // escape/escaped buttons
-		input = getc(stdin);
-		if(input == -1){ // escape
-			if( Keyboard::ESCAPE == key ) return true;
-			else return false;
-		}
-		if(input == 91){ // arrows
-			input = getc(stdin);
-			if( ((input - 65) + Keyboard::UP_ARROW) == key ) return true;
-			else return false;
-		}
-	}
+	if(input[0] == key) return true;
+	
 	return false;
 }

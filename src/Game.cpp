@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <unistd.h>
 
 
 void Game::setScene(Scene *newScene){
@@ -8,8 +9,10 @@ void Game::setScene(Scene *newScene){
 void Game::loop(){
 	while(!quitGame){
 		graphics.updateSize();
+		input.getInput();
 		currentScene->update();
 		currentScene->draw();
+		usleep(0); // without this not all input is accepted
 	}
 }
 
