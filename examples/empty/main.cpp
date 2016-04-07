@@ -10,10 +10,10 @@ class TScene : public Scene {
 	  TScene(Game &game) : game(&game) {}
 	  void update(){
 	    if(game->input.isButtonDown(Keyboard::UP_ARROW)){
-				y--;
+				y++;
 			}
 			else if(game->input.isButtonDown(Keyboard::DOWN_ARROW)){
-				y++;
+				y--;
 			}
 			else if(game->input.isButtonDown(Keyboard::LEFT_ARROW)){
 				x--;
@@ -24,7 +24,19 @@ class TScene : public Scene {
 	  }
 		
 		void draw(){
-			game->graphics.addToScreen(x, y, "Hello, world!");
+			// Axis from origin point
+			for(int i = -39; i < 40; i++){
+				game->graphics.addToScreen(i, 0, "-");
+			}
+			game->graphics.addToScreen(40, 0, ">");
+			for(int i = -19; i < 20; i++){
+				game->graphics.addToScreen(0, i, "|");
+			}
+			game->graphics.addToScreen(0, 20, "^");
+			game->graphics.addToScreen(0, 0, "+");
+			
+			// "Player"
+			game->graphics.addToScreen(x, y, "@");
 	  }
 };
 

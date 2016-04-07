@@ -126,7 +126,7 @@ void Graphics::draw(){
 		}
 	}
 	
-	for(int y = 0; y < terminalSizeY; y++){ // Y axis
+	for(int y = terminalSizeY-1; y >= 0; y--){ // Y axis
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
 			printf("%s", textOnScreen[x][y].c_str());
 		}
