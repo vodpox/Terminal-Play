@@ -8,7 +8,7 @@
 
 enum Format{Bold};
 
-struct ScreenSpace{
+struct ScreenUnit{
 	int x;
 	int y;
 	char ch;
@@ -18,14 +18,18 @@ struct ScreenSpace{
 class Graphics{
 	
 	private:
-		std::vector<ScreenSpace> screen;
-		
+		std::vector<ScreenUnit> screen;
+		std::vector<ScreenUnit> lastScreen;
 		std::vector<Format> currentFormat;
 		
 		struct termios oldios;
 		struct winsize winSize;
 		int terminalSizeX;
 		int terminalSizeY;
+		
+		int lastTerminalSizeX;
+		int lastTerminalSizeY;
+		bool isScreenSchanged();
 	
 	public:
 		Graphics();

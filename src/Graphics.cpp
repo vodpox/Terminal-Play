@@ -6,6 +6,29 @@
 #include <termios.h>
 #include <unistd.h>
 
+
+bool Graphics::isScreenSchanged(){
+	if(terminalSizeX != lastTerminalSizeX || terminalSizeY != lastTerminalSizeY){
+		return true;
+	}
+	else if(screen.size() != lastScreen.size()){
+		return true;
+	}
+	else{
+		bool isChanged = false;
+		for(int i = 0; i < screen.size(); i++){
+			if(screen[i].x != lastScreen[i].x || screen[i].y != lastScreen[i].y ||
+			   screen[i].ch != lastScreen[i].ch || screen[i].format != lastScreen[i].format
+			){
+				isChanged = true;
+				break;
+			}
+		}
+		if(!isChanged) screen.clear();
+		return isChanged;
+	}
+}
+
 Graphics::Graphics(){
 	tcgetattr(0, &oldios);
 	setTermios();
@@ -76,16 +99,18 @@ void Graphics::resetFormat(){
 
 void Graphics::addToScreen(int x, int y, std::string text){
 	for(int i = 0; i < text.size(); i++){
-		ScreenSpace SP;
-		SP.x = x + i;
-		SP.y = y;
-		SP.ch = text.at(i);
-		SP.format = currentFormat;
-		screen.push_back(SP);
+		ScreenUnit SU;
+		SU.x = x + i;
+		SU.y = y;
+		SU.ch = text.at(i);
+		SU.format = currentFormat;
+		screen.push_back(SU);
 	}
 }
 
 void Graphics::draw(){
+	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
+	
 	std::string textOnScreen[terminalSizeX][terminalSizeY];
 	
 	for(int y = 0; y < terminalSizeY; y++){ // Y axis
@@ -107,6 +132,9 @@ void Graphics::draw(){
 		}
 	}
 	
+	lastTerminalSizeX = terminalSizeX;
+	lastTerminalSizeY = terminalSizeY;
+	lastScreen = screen;
 	screen.clear();
 	currentFormat.clear();
 }
