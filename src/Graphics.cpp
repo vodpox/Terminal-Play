@@ -108,6 +108,11 @@ void Graphics::addToScreen(int x, int y, std::string text){
 	}
 }
 
+void Graphics::setCameraCoordinates(int x, int y){
+	cameraX = x;
+	cameraY = y;
+}
+
 void Graphics::draw(){
 	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
 	
@@ -120,18 +125,18 @@ void Graphics::draw(){
 	}
 	
 	for(int i = 0; i < screen.size(); i++){
-		if( (screen[i].x >= 0 && screen[i].x < terminalSizeX) &&
-		    (screen[i].y >= 0 && screen[i].y < terminalSizeY) ){
-			textOnScreen[screen[i].x][screen[i].y] = /*Format + */ screen[i].ch;
+		if( (screen[i].x >= cameraX && screen[i].x < terminalSizeX + cameraX) &&
+		    (screen[i].y >= cameraY && screen[i].y < terminalSizeY + cameraY)){
+			textOnScreen[screen[i].x - cameraX][screen[i].y - cameraY] = /*Format + */ screen[i].ch;
 		}
 	}
 	
-	printf("\n");
-	for(int y = terminalSizeY-1; y >= 0; y--){ // Y axis
+
+	for(int y = terminalSizeY - 1; y >= 0; y--){ // Y axis
+		printf("\n");
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
 			printf("%s", textOnScreen[x][y].c_str());
 		}
-		if(y > 0) printf("\n");
 	}
 	
 	lastTerminalSizeX = terminalSizeX;

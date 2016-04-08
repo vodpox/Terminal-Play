@@ -24,7 +24,10 @@ class TScene : public Scene {
 	  }
 		
 		void draw(){
-			// Axis from origin point
+			// centre camera on player
+			game->graphics.setCameraCoordinates(x - (game->graphics.getTerminalSizeX() / 2), y - (game->graphics.getTerminalSizeY() / 2));
+			
+			// draw axis from origin point
 			for(int i = -39; i < 40; i++){
 				game->graphics.addToScreen(i, 0, "-");
 			}

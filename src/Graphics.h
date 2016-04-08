@@ -18,6 +18,9 @@ struct ScreenUnit{
 class Graphics{
 	
 	private:
+		int cameraX = 0;
+		int cameraY = 0;
+		
 		std::vector<ScreenUnit> screen;
 		std::vector<ScreenUnit> lastScreen;
 		std::vector<Format> currentFormat;
@@ -45,6 +48,7 @@ class Graphics{
 		void unsetFormat(Format format);
 		void resetFormat();
 		void addToScreen(int x, int y, std::string text);
+		void setCameraCoordinates(int x, int y);
 		void draw();
 };
 
