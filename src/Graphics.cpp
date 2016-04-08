@@ -126,10 +126,12 @@ void Graphics::draw(){
 		}
 	}
 	
+	printf("\n");
 	for(int y = terminalSizeY-1; y >= 0; y--){ // Y axis
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
 			printf("%s", textOnScreen[x][y].c_str());
 		}
+		if(y > 0) printf("\n");
 	}
 	
 	lastTerminalSizeX = terminalSizeX;
