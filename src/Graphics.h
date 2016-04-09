@@ -43,7 +43,6 @@ class Graphics{
 		int getTerminalSizeX();
 		int getTerminalSizeY();
 		
-		void clearScreen();
 		void setFormat(Format format);
 		void unsetFormat(Format format);
 		void resetFormat();

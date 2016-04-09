@@ -32,8 +32,6 @@ bool Graphics::isScreenSchanged(){
 Graphics::Graphics(){
 	tcgetattr(0, &oldios);
 	setTermios();
-	updateSize();
-	clearScreen();
 }
 
 void Graphics::setTermios(){
@@ -66,11 +64,6 @@ int Graphics::getTerminalSizeY(){
 	return terminalSizeY;
 }
 
-void Graphics::clearScreen(){
-	for(int y = 0; y < terminalSizeY; y++){
-		printf("\n");
-	}
-}
 
 void Graphics::setFormat(Format format){
 	bool alreadyExists = false;
