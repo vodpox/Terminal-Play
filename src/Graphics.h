@@ -6,7 +6,15 @@
 #include <vector>
 #include <string>
 
-enum Format{Bold};
+enum Format{
+	BOLD = 1, FAINT = 2, BLINK = 5, NEGATIVE = 7,
+	FOREGROUND_BLACK = 30, FOREGROUND_RED = 31, FOREGROUND_GREEN = 32,
+	FOREGROUND_YELLOW = 33, FOREGROUND_BLUE = 34, FOREGROUND_MAGENTA = 35,
+	FOREGROUND_CYAN = 36, FOREGROUND_WHITE = 37, FOREGROUND_DEFAULT = 39,
+	BACKGROUND_BLACK = 40, BACKGROUND_RED = 41, BACKGROUND_GREEN = 42,
+	BACKGROUND_YELLOW = 43, BACKGROUND_BLUE = 44, BACKGROUND_MAGENTA = 45,
+	BACKGROUND_CYAN = 46, BACKGROUND_WHITE = 47, BACKGROUND_DEFAULT = 49
+};
 
 struct ScreenUnit{
 	int x;
@@ -32,12 +40,14 @@ class Graphics{
 		
 		int lastTerminalSizeX;
 		int lastTerminalSizeY;
+		
+		void resetTermios();
 		bool isScreenSchanged();
+		std::string printFormat(std::vector<Format> format);
 	
 	public:
 		Graphics();
 		void setTermios();
-		void resetTermios();
 		void updateSize();
 		
 		int getTerminalSizeX();
@@ -49,6 +59,8 @@ class Graphics{
 		void addToScreen(int x, int y, std::string text);
 		void setCameraCoordinates(int x, int y);
 		void draw();
+		
+		~Graphics();
 };
 
 #endif

@@ -29,6 +29,14 @@ bool Graphics::isScreenSchanged(){
 	}
 }
 
+std::string Graphics::printFormat(std::vector<Format> format){
+	std::string formatString = "\033[0";
+	for(int i = 0; i < format.size(); i++){
+		formatString += ";" + std::to_string(format[i]);
+	}
+	return formatString + "m";
+}
+
 Graphics::Graphics(){
 	tcgetattr(0, &oldios);
 	setTermios();
@@ -109,26 +117,25 @@ void Graphics::setCameraCoordinates(int x, int y){
 void Graphics::draw(){
 	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
 	
-	std::string textOnScreen[terminalSizeX][terminalSizeY];
+	std::string textToPrint[terminalSizeX][terminalSizeY];
 	
 	for(int y = 0; y < terminalSizeY; y++){ // Y axis
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
-			textOnScreen[x][y] = ' ';
+			textToPrint[x][y] = "\033[0m ";
 		}
 	}
 	
 	for(int i = 0; i < screen.size(); i++){
 		if( (screen[i].x >= cameraX && screen[i].x < terminalSizeX + cameraX) &&
 		    (screen[i].y >= cameraY && screen[i].y < terminalSizeY + cameraY)){
-			textOnScreen[screen[i].x - cameraX][screen[i].y - cameraY] = /*Format + */ screen[i].ch;
+			textToPrint[screen[i].x - cameraX][screen[i].y - cameraY] = printFormat(screen[i].format) + screen[i].ch;
 		}
 	}
-	
 
 	for(int y = terminalSizeY - 1; y >= 0; y--){ // Y axis
 		printf("\n");
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
-			printf("%s", textOnScreen[x][y].c_str());
+			printf("%s", textToPrint[x][y].c_str());
 		}
 	}
 	
@@ -137,4 +144,9 @@ void Graphics::draw(){
 	lastScreen = screen;
 	screen.clear();
 	currentFormat.clear();
+}
+
+Graphics::~Graphics(){
+	resetTermios();
+	printf("\033[0m");
 }
