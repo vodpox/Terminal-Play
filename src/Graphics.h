@@ -58,6 +58,7 @@ class Graphics{
 		void resetFormat();
 		void addToScreen(int x, int y, std::string text);
 		void setCameraCoordinates(int x, int y);
+		void updateCameraCoordinates(int x, int y);
 		void draw();
 		
 		~Graphics();

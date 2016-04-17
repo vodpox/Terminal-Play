@@ -114,6 +114,11 @@ void Graphics::setCameraCoordinates(int x, int y){
 	cameraY = y;
 }
 
+void Graphics::updateCameraCoordinates(int x, int y){
+	cameraX += x;
+	cameraY += y;
+}
+
 void Graphics::draw(){
 	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
 	
