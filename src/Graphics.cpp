@@ -29,6 +29,7 @@ bool Graphics::isScreenSchanged(){
 	}
 }
 
+
 std::string Graphics::printFormat(std::vector<Format> format){
 	std::string formatString = "\033[0";
 	for(int i = 0; i < format.size(); i++){
@@ -37,10 +38,12 @@ std::string Graphics::printFormat(std::vector<Format> format){
 	return formatString + "m";
 }
 
+
 Graphics::Graphics(){
 	tcgetattr(0, &oldios);
 	setTermios();
 }
+
 
 void Graphics::setTermios(){
 	struct termios newios;
@@ -54,9 +57,11 @@ void Graphics::setTermios(){
   tcsetattr(0, TCSANOW, &newios);
 }
 
+
 void Graphics::resetTermios(){
 	tcsetattr(0, TCSANOW, &oldios);
 }
+
 
 void Graphics::updateSize(){
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &winSize);
@@ -64,9 +69,11 @@ void Graphics::updateSize(){
 	terminalSizeY = winSize.ws_row;	
 }
 
+
 int Graphics::getTerminalSizeX(){
 	return terminalSizeX;
 }
+
 
 int Graphics::getTerminalSizeY(){
 	return terminalSizeY;
@@ -85,6 +92,7 @@ void Graphics::setFormat(Format format){
 	return;
 }
 
+
 void Graphics::unsetFormat(Format format){
 	for(int i = 0; i < currentFormat.size(); i++){
 		if(currentFormat[i] == format){
@@ -94,9 +102,11 @@ void Graphics::unsetFormat(Format format){
 	}
 }
 
+
 void Graphics::resetFormat(){
 	currentFormat.clear();
 }
+
 
 void Graphics::addToScreen(int x, int y, std::string text){
 	for(int i = 0; i < text.size(); i++){
@@ -109,15 +119,28 @@ void Graphics::addToScreen(int x, int y, std::string text){
 	}
 }
 
+
 void Graphics::setCameraCoordinates(int x, int y){
 	cameraX = x;
 	cameraY = y;
 }
 
+
 void Graphics::updateCameraCoordinates(int x, int y){
 	cameraX += x;
 	cameraY += y;
 }
+
+
+int Graphics::getCameraX(){
+	return cameraX;
+}
+
+
+int Graphics::getCameraY(){
+	return cameraY;
+}
+
 
 void Graphics::draw(){
 	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
@@ -150,6 +173,7 @@ void Graphics::draw(){
 	screen.clear();
 	currentFormat.clear();
 }
+
 
 Graphics::~Graphics(){
 	resetTermios();
