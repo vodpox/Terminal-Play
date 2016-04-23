@@ -38,8 +38,8 @@ class Graphics{
 		int terminalSizeX;
 		int terminalSizeY;
 		
-		int lastTerminalSizeX;
-		int lastTerminalSizeY;
+		int lastTerminalSizeX = 0;
+		int lastTerminalSizeY = 0; // = 0 is for preserving previous terminal text when drawing first frame
 		
 		void resetTermios();
 		bool isScreenSchanged();

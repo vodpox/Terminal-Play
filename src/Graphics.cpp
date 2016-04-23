@@ -145,26 +145,36 @@ int Graphics::getCameraY(){
 void Graphics::draw(){
 	if(!isScreenSchanged()) return; // if nothing is changed do not draw anything
 	
+	// preserve preovious terminal text
+	for(int i = 0; i < terminalSizeY - lastTerminalSizeY; i++){
+		printf("\n");
+	}
+	
+	printf("\033[H");// reset terminal to top left corners
+	
 	std::string textToPrint[terminalSizeX][terminalSizeY];
 	
+	// set background
 	for(int y = 0; y < terminalSizeY; y++){ // Y axis
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
 			textToPrint[x][y] = "\033[0m ";
 		}
 	}
 	
+	// look what should be drawn on scren
 	for(int i = 0; i < screen.size(); i++){
 		if( (screen[i].x >= cameraX && screen[i].x < terminalSizeX + cameraX) &&
 		    (screen[i].y >= cameraY && screen[i].y < terminalSizeY + cameraY)){
 			textToPrint[screen[i].x - cameraX][screen[i].y - cameraY] = printFormat(screen[i].format) + screen[i].ch;
 		}
 	}
-
+	
+	// draw frame
 	for(int y = terminalSizeY - 1; y >= 0; y--){ // Y axis
-		printf("\n");
 		for(int x = 0; x < terminalSizeX; x++){ // X axis
 			printf("%s", textToPrint[x][y].c_str());
 		}
+		if(y > 0) printf("\n");
 	}
 	
 	lastTerminalSizeX = terminalSizeX;
