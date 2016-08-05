@@ -1,82 +1,81 @@
 /*
-	Simple demo that should use most Engine's features in a pretty basic form.
+	Simple demo that should use most used features in a pretty basic form.
 */
-
 
 #include "Game.h"
 #include "Input.h"
 #include "Graphics.h"
 
-class TScene : public Scene {
+
+class TestScene : public tplay::Scene {
 	public:
-	  Game *game;
-	  TScene(Game &game) : game(&game) {}
+		tplay::Game *game;
+		TestScene(tplay::Game &game) : game(&game) {}
 		
-		// Our player's coordinates
+		// Player's coordinates
 		int x = 5;
 		int y = 5;
 		
-	  void update(){
+		void update() {
 			// Get input. Arrow keys to move up and down, q quits game.
-	    if(game->input.isButtonDown(Keyboard::UP_ARROW)){
+			if (game->input.isButtonDown(tplay::Keyboard::UP_ARROW)) {
 				y++;
 			}
-			else if(game->input.isButtonDown(Keyboard::DOWN_ARROW)){
+			else if (game->input.isButtonDown(tplay::Keyboard::DOWN_ARROW)) {
 				y--;
 			}
-			else if(game->input.isButtonDown(Keyboard::LEFT_ARROW)){
+			else if (game->input.isButtonDown(tplay::Keyboard::LEFT_ARROW)) {
 				x--;
 			}
-			else if(game->input.isButtonDown(Keyboard::RIGHT_ARROW)){
+			else if (game->input.isButtonDown(tplay::Keyboard::RIGHT_ARROW)) {
 				x++;
 			}
-			else if(game->input.isButtonDown(Keyboard::Q)){
+			else if (game->input.isButtonDown(tplay::Keyboard::Q)) {
 				game->quit();
 			}
-	  }
+		}
 		
-		void draw(){
+		void draw() {
 			// Centre camera on player
 			game->graphics.setCameraCoordinates(x - (game->graphics.getTerminalSizeX() / 2), y - (game->graphics.getTerminalSizeY() / 2));
 			
-			//   Draw axis from origin point (0, 0) using fancy graphics
-			
+			// Draw axis from (0, 0)
 			// X axis
-			game->graphics.setFormat(Format::FOREGROUND_BLUE);
-			for(int i = -39; i < 40; i++){
-				if(i < 0) game->graphics.setFormat(Format::NEGATIVE);
+			game->graphics.setFormat(tplay::Format::FOREGROUND_BLUE);
+			for (int i = -39; i < 40; i++) {
+				if (i < 0) game->graphics.setFormat(tplay::Format::NEGATIVE);
 				game->graphics.addToScreen(i, 0, "-");
-				if(i < 0) game->graphics.unsetFormat(Format::NEGATIVE);
+				if (i < 0) game->graphics.unsetFormat(tplay::Format::NEGATIVE);
 			}
-			game->graphics.setFormat(Format::BOLD);
+			game->graphics.setFormat(tplay::Format::BOLD);
 			game->graphics.addToScreen(40, 0, ">");
 			game->graphics.resetFormat();
 			
 			// Y axis
-			game->graphics.setFormat(Format::FOREGROUND_RED);
-			for(int i = -19; i < 20; i++){
-				if(i < 0) game->graphics.setFormat(Format::NEGATIVE);
+			game->graphics.setFormat(tplay::Format::FOREGROUND_RED);
+			for (int i = -19; i < 20; i++) {
+				if (i < 0) game->graphics.setFormat(tplay::Format::NEGATIVE);
 				game->graphics.addToScreen(0, i, "|");
-				if(i < 0) game->graphics.unsetFormat(Format::NEGATIVE);
+				if (i < 0) game->graphics.unsetFormat(tplay::Format::NEGATIVE);
 			}
-			game->graphics.setFormat(Format::BOLD);
+			game->graphics.setFormat(tplay::Format::BOLD);
 			game->graphics.addToScreen(0, 20, "^");
 			game->graphics.resetFormat();
 			
-			// Middle
-			game->graphics.setFormat(Format::BACKGROUND_GREEN);
+			// Middle point
+			game->graphics.setFormat(tplay::Format::BACKGROUND_GREEN);
 			game->graphics.addToScreen(0, 0, " ");
 			game->graphics.resetFormat();
 			
 			// Player
 			game->graphics.addToScreen(x, y, "@");
-	  }
+		}
 };
 
-int main(){
-  Game game;
-  TScene scene(game);
-  game.setScene(&scene);
-  game.loop();
+int main() {
+	tplay::Game game;
+	TestScene scene(game);
+	game.setScene(&scene);
+	game.loop();
 	return 0;
 }

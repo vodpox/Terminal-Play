@@ -5,20 +5,24 @@
 #include "Graphics.h"
 #include "Input.h"
 
-class Game{
+namespace tplay {
 	
-	private:
-		Scene *currentScene;
-		bool quitGame = false;
-	
-	public:
-		Graphics graphics;
-		Input input;
+	class Game {
 		
-		void setScene(Scene *newScene);
-		void loop();
-		void quit();
+		private:
+			Scene *currentScene;
+			bool quitGame = false;
+		
+		public:
+			Graphics graphics;
+			Input input;
+			
+			void setScene(Scene *newScene);
+			void loop();
+			void quit();
+		
+	};
 	
-};
+}
 
 #endif
