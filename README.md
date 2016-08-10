@@ -1,6 +1,6 @@
 # Terminal Play
 
-Framework for text based games (currently only for UNIX like systems).
+Framework for Terminal/Console/CLI/TTY/text based/whatever games (currently only for UNIX like systems). Right now it's in late alpha so expect to see some minor changes in API.
 
 ## Getting Started
 
