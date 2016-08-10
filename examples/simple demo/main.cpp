@@ -11,11 +11,11 @@ class ExampleScene : public tplay::Scene {
 	public:
 		tplay::Game *game;
 		ExampleScene(tplay::Game &game) : game(&game) {}
-
+		
 		// Player's coordinates
 		int x = 5;
 		int y = 5;
-
+		
 		void update() {
 			// Get input. Arrow keys to move up and down, q quits game.
 			if (game->input.isButtonDown(tplay::Keyboard::UP_ARROW)) {
@@ -34,11 +34,11 @@ class ExampleScene : public tplay::Scene {
 				game->quit();
 			}
 		}
-
+		
 		void draw() {
 			// Centre camera on player
 			game->graphics.setCameraCoordinates(x - (game->graphics.getTerminalSizeX() / 2), y - (game->graphics.getTerminalSizeY() / 2));
-
+			
 			// Draw axis from (0, 0)
 			// X axis
 			game->graphics.setFormat(tplay::Format::FOREGROUND_BLUE);
@@ -50,7 +50,7 @@ class ExampleScene : public tplay::Scene {
 			game->graphics.setFormat(tplay::Format::BOLD);
 			game->graphics.addToScreen(40, 0, ">");
 			game->graphics.resetFormat();
-
+			
 			// Y axis
 			game->graphics.setFormat(tplay::Format::FOREGROUND_RED);
 			for (int i = -19; i < 20; i++) {
@@ -61,12 +61,12 @@ class ExampleScene : public tplay::Scene {
 			game->graphics.setFormat(tplay::Format::BOLD);
 			game->graphics.addToScreen(0, 20, "^");
 			game->graphics.resetFormat();
-
+			
 			// Middle point
 			game->graphics.setFormat(tplay::Format::BACKGROUND_GREEN);
 			game->graphics.addToScreen(0, 0, " ");
 			game->graphics.resetFormat();
-
+			
 			// Player
 			game->graphics.addToScreen(x, y, "@");
 		}
