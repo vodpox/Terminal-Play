@@ -1,6 +1,6 @@
 # Terminal Play
 
-Framework for Terminal/Console/CLI/TTY/text based/whatever games (currently only for UNIX like systems). Right now it's in late alpha so expect to see some minor changes in API.
+Framework/game engine for terminal/console/CLI games (currently only for UNIX like systems). Right now it's in late alpha so expect to see some minor changes in the API.
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-All you need to use this framework is `g++` and `make`. Even if you don't have these already it shouldn't be too hard to install them on your OS.
+All you need to use this framework is `g++` and `make`. Even if you don't have these already it shouldn't be too hard to install them. Please  follow instructions that are suitable for your OS.
 
 ### Installing
 
