@@ -55,11 +55,16 @@ namespace tplay {
 			int getTerminalSizeX();
 			int getTerminalSizeY();
 			
+			// adding to screen
+			void addToWorld(int x, int y, std::string text);
+			void addToScreen(int x, int y, std::string text);
+			
+			// formatting
 			void setFormat(Format format);
 			void unsetFormat(Format format);
 			void resetFormat();
-			void addToScreen(int x, int y, std::string text);
 			
+			// camera
 			void setCameraCoordinates(int x, int y);
 			void updateCameraCoordinates(int x, int y);
 			int getCameraX();

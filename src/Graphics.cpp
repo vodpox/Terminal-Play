@@ -80,6 +80,23 @@ namespace tplay {
 	int Graphics::getTerminalSizeY() {
 		return terminalSizeY;
 	}
+	
+	
+	void Graphics::addToWorld(int x, int y, std::string text) {
+		for (int i = 0; i < text.size(); i++) {
+			ScreenUnit SU;
+			SU.x = x + i;
+			SU.y = y;
+			SU.ch = text.at(i);
+			SU.format = currentFormat;
+			screen.push_back(SU);
+		}
+	}
+	
+	
+	void Graphics::addToScreen(int x, int y, std::string text) {
+		addToWorld(x + getCameraX(), y + getCameraY(), text);
+	}
 
 
 	void Graphics::setFormat(Format format) {
@@ -110,18 +127,6 @@ namespace tplay {
 	}
 
 
-	void Graphics::addToScreen(int x, int y, std::string text) {
-		for (int i = 0; i < text.size(); i++) {
-			ScreenUnit SU;
-			SU.x = x + i;
-			SU.y = y;
-			SU.ch = text.at(i);
-			SU.format = currentFormat;
-			screen.push_back(SU);
-		}
-	}
-
-
 	void Graphics::setCameraCoordinates(int x, int y) {
 		cameraX = x;
 		cameraY = y;
@@ -145,6 +150,8 @@ namespace tplay {
 
 
 	void Graphics::draw() {
+		resetFormat();
+		
 		if (!isScreenSchanged()) return; // if nothing is changed do not draw anything
 		
 		// preserve preovious terminal text

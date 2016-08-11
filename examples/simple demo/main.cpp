@@ -44,31 +44,35 @@ class ExampleScene : public tplay::Scene {
 			game->graphics.setFormat(tplay::Format::FOREGROUND_BLUE);
 			for (int i = -39; i < 40; i++) {
 				if (i < 0) game->graphics.setFormat(tplay::Format::NEGATIVE);
-				game->graphics.addToScreen(i, 0, "-");
+				game->graphics.addToWorld(i, 0, "-");
 				if (i < 0) game->graphics.unsetFormat(tplay::Format::NEGATIVE);
 			}
 			game->graphics.setFormat(tplay::Format::BOLD);
-			game->graphics.addToScreen(40, 0, ">");
+			game->graphics.addToWorld(40, 0, ">");
 			game->graphics.resetFormat();
 			
 			// Y axis
 			game->graphics.setFormat(tplay::Format::FOREGROUND_RED);
 			for (int i = -19; i < 20; i++) {
 				if (i < 0) game->graphics.setFormat(tplay::Format::NEGATIVE);
-				game->graphics.addToScreen(0, i, "|");
+				game->graphics.addToWorld(0, i, "|");
 				if (i < 0) game->graphics.unsetFormat(tplay::Format::NEGATIVE);
 			}
 			game->graphics.setFormat(tplay::Format::BOLD);
-			game->graphics.addToScreen(0, 20, "^");
+			game->graphics.addToWorld(0, 20, "^");
 			game->graphics.resetFormat();
 			
 			// Middle point
 			game->graphics.setFormat(tplay::Format::BACKGROUND_GREEN);
-			game->graphics.addToScreen(0, 0, " ");
+			game->graphics.addToWorld(0, 0, " ");
 			game->graphics.resetFormat();
 			
 			// Player
-			game->graphics.addToScreen(x, y, "@");
+			game->graphics.addToWorld(x, y, "@");
+			
+			// UI
+			game->graphics.setFormat(tplay::Format::NEGATIVE);
+			game->graphics.addToScreen(game->graphics.getTerminalSizeX() / 2 - 6, 0, "Health: 100%");
 		}
 };
 
