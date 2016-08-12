@@ -10,7 +10,7 @@ namespace tplay {
 	class Game {
 		
 		private:
-			Scene *currentScene;
+			Scene *currentScene = NULL;
 			bool quitGame = false;
 		
 		public:

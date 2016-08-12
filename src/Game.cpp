@@ -5,7 +5,9 @@
 namespace tplay {
 	
 	void Game::setScene(Scene *newScene) {
+		if (currentScene != NULL) currentScene->onExit();
 		currentScene = newScene;
+		currentScene->onEnter();
 	}
 
 	void Game::loop() {
