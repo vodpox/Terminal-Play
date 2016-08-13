@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+#include "Camera.h"
+
 namespace tplay {
 	
 	enum Format {
@@ -46,6 +48,8 @@ namespace tplay {
 			void resetTermios();
 			bool isScreenSchanged();
 			std::string printFormat(std::vector<Format> format);
+			
+			Camera * currentCamera;
 		
 		public:
 			Graphics();
@@ -58,6 +62,7 @@ namespace tplay {
 			// adding to screen
 			void addToWorld(int x, int y, std::string text);
 			void addToScreen(int x, int y, std::string text);
+			void addToScreen(int x, int y, std::string text, Camera * camera);
 			
 			// formatting
 			void setFormat(Format format);
@@ -65,10 +70,7 @@ namespace tplay {
 			void resetFormat();
 			
 			// camera
-			void setCameraCoordinates(int x, int y);
-			void updateCameraCoordinates(int x, int y);
-			int getCameraX();
-			int getCameraY();
+			void setCamera(Camera * camera);
 			
 			void draw();
 			

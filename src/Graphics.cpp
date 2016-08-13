@@ -5,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
+#include "Camera.h"
 
 
 namespace tplay {
@@ -95,10 +96,15 @@ namespace tplay {
 	
 	
 	void Graphics::addToScreen(int x, int y, std::string text) {
-		addToWorld(x + getCameraX(), y + getCameraY(), text);
+		addToWorld(x + currentCamera->getX(), y + currentCamera->getY(), text);
 	}
-
-
+	
+	
+	void Graphics::addToScreen(int x, int y, std::string text, Camera * camera) {
+		addToWorld(x + camera->getX(), y + camera->getY(), text);
+	}
+	
+	
 	void Graphics::setFormat(Format format) {
 		bool alreadyExists = false;
 		for (int i = 0; i < currentFormat.size(); i++) {
@@ -125,30 +131,13 @@ namespace tplay {
 	void Graphics::resetFormat() {
 		currentFormat.clear();
 	}
-
-
-	void Graphics::setCameraCoordinates(int x, int y) {
-		cameraX = x;
-		cameraY = y;
+	
+	
+	void Graphics::setCamera(Camera * camera) {
+		currentCamera = camera;
 	}
-
-
-	void Graphics::updateCameraCoordinates(int x, int y) {
-		cameraX += x;
-		cameraY += y;
-	}
-
-
-	int Graphics::getCameraX() {
-		return cameraX;
-	}
-
-
-	int Graphics::getCameraY() {
-		return cameraY;
-	}
-
-
+	
+	
 	void Graphics::draw() {
 		resetFormat();
 		
@@ -172,9 +161,12 @@ namespace tplay {
 		
 		// look what should be drawn on scren
 		for (int i = 0; i < screen.size(); i++) {
-			if( (screen[i].x >= cameraX && screen[i].x < terminalSizeX + cameraX) &&
-			    (screen[i].y >= cameraY && screen[i].y < terminalSizeY + cameraY)){
-				textToPrint[screen[i].x - cameraX][screen[i].y - cameraY] = printFormat(screen[i].format) + screen[i].ch;
+			if( (screen[i].x >= currentCamera->getX() &&
+			     screen[i].x < terminalSizeX + currentCamera->getX()) &&
+			    (screen[i].y >= currentCamera->getY() &&
+			     screen[i].y < terminalSizeY + currentCamera->getY())
+			){
+				textToPrint[screen[i].x - currentCamera->getX()][screen[i].y - currentCamera->getY()] = printFormat(screen[i].format) + screen[i].ch;
 			}
 		}
 		
