@@ -9,8 +9,8 @@
 
 
 namespace tplay {
-	
-	bool Graphics::isScreenSchanged() {
+
+	bool Graphics::isScreenChanged() {
 		if (terminalSizeX != lastTerminalSizeX || terminalSizeY != lastTerminalSizeY) {
 			return true;
 		}
@@ -51,12 +51,12 @@ namespace tplay {
 	void Graphics::setTermios() {
 		struct termios newios;
 		newios = oldios;
-		
+
 	  newios.c_lflag &= ~ICANON;
 	  newios.c_lflag &= ~ECHO;
 		newios.c_cc[VMIN] = 0;
 		newios.c_cc[VTIME] = 0;
-		
+
 	  tcsetattr(0, TCSANOW, &newios);
 	}
 
@@ -69,7 +69,7 @@ namespace tplay {
 	void Graphics::updateSize() {
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &winSize);
 		terminalSizeX = winSize.ws_col;
-		terminalSizeY = winSize.ws_row;	
+		terminalSizeY = winSize.ws_row;
 	}
 
 
@@ -81,8 +81,8 @@ namespace tplay {
 	int Graphics::getTerminalSizeY() {
 		return terminalSizeY;
 	}
-	
-	
+
+
 	void Graphics::addToWorld(int x, int y, std::string text) {
 		for (int i = 0; i < text.size(); i++) {
 			ScreenUnit SU;
@@ -93,18 +93,18 @@ namespace tplay {
 			screen.push_back(SU);
 		}
 	}
-	
-	
+
+
 	void Graphics::addToScreen(int x, int y, std::string text) {
 		addToWorld(x + currentCamera->getX(), y + currentCamera->getY(), text);
 	}
-	
-	
+
+
 	void Graphics::addToScreen(int x, int y, std::string text, Camera * camera) {
 		addToWorld(x + camera->getX(), y + camera->getY(), text);
 	}
-	
-	
+
+
 	void Graphics::setFormat(Format format) {
 		bool alreadyExists = false;
 		for (int i = 0; i < currentFormat.size(); i++) {
@@ -131,34 +131,34 @@ namespace tplay {
 	void Graphics::resetFormat() {
 		currentFormat.clear();
 	}
-	
-	
+
+
 	void Graphics::setCamera(Camera * camera) {
 		currentCamera = camera;
 	}
-	
-	
+
+
 	void Graphics::draw() {
 		resetFormat();
-		
-		if (!isScreenSchanged()) return; // if nothing is changed do not draw anything
-		
+
+		if (!isScreenChanged()) return; // if nothing is changed do not draw anything
+
 		// preserve preovious terminal text
 		for (int i = 0; i < terminalSizeY - lastTerminalSizeY; i++) {
 			printf("\n");
 		}
-		
+
 		printf("\033[H");// reset terminal to top left corner
-		
+
 		std::string textToPrint[terminalSizeX][terminalSizeY];
-		
+
 		// set background
 		for (int y = 0; y < terminalSizeY; y++) { // Y axis
 			for (int x = 0; x < terminalSizeX; x++) { // X axis
 				textToPrint[x][y] = "\033[0m ";
 			}
 		}
-		
+
 		// look what should be drawn on scren
 		for (int i = 0; i < screen.size(); i++) {
 			if( (screen[i].x >= currentCamera->getX() &&
@@ -169,7 +169,7 @@ namespace tplay {
 				textToPrint[screen[i].x - currentCamera->getX()][screen[i].y - currentCamera->getY()] = printFormat(screen[i].format) + screen[i].ch;
 			}
 		}
-		
+
 		// draw frame
 		for (int y = terminalSizeY - 1; y >= 0; y--) { // Y axis
 			for (int x = 0; x < terminalSizeX; x++) { // X axis
@@ -177,7 +177,7 @@ namespace tplay {
 			}
 			if(y > 0) printf("\n");
 		}
-		
+
 		lastTerminalSizeX = terminalSizeX;
 		lastTerminalSizeY = terminalSizeY;
 		lastScreen = screen;
@@ -190,5 +190,5 @@ namespace tplay {
 		resetTermios();
 		printf("\033[0m");
 	}
-	
+
 }
