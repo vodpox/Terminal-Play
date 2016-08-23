@@ -5,11 +5,13 @@
 #include "Game.h"
 #include "Input.h"
 #include "Graphics.h"
+#include "Camera.h"
 
 
 class ExampleScene : public tplay::Scene {
 	public:
 		tplay::Game *game;
+		tplay::Camera camera;
 		ExampleScene(tplay::Game &game) : game(&game) {}
 		
 		// Player's coordinates
@@ -36,8 +38,9 @@ class ExampleScene : public tplay::Scene {
 		}
 		
 		void draw() {
+			game->graphics.setCamera(&camera);
 			// Centre camera on player
-			game->graphics.setCameraCoordinates(x - (game->graphics.getTerminalSizeX() / 2), y - (game->graphics.getTerminalSizeY() / 2));
+			camera.setCoordinates(x - (game->graphics.getTerminalSizeX() / 2), y - (game->graphics.getTerminalSizeY() / 2));
 			
 			// Draw axis from (0, 0)
 			// X axis
