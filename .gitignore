@@ -1,2 +1,4 @@
 build/
 obj/
+examples/*/*.o
+examples/*/game

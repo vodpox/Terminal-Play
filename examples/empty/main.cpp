@@ -1,20 +1,27 @@
-#include <iostream>
-#include "Game.h"
-#include "Input.h"
+// Empty project. Have fun!
 
-class TScene : public Scene {
-public:
-  Game *game;
-  TScene(Game game) : game(&game) {}
-  void update(){
-    if(game->input.getButton(Keyboard::a)) printf("\033[2;31mHello World\033[0m\n");
-  }
+#include "Game.h"
+
+
+class EmptyScene : public tplay::Scene {
+	public:
+		tplay::Game *game;
+		
+		EmptyScene(tplay::Game &game) : game(&game) {}
+		
+		void update() {
+			// Called once per frame. Use to get input, move player, etc.
+		}
+		
+		void draw() {
+			// Called after update(). Use only for drawing.
+		}
 };
 
-int main(){
-  Game game;
-  TScene scene(game);
-  game.setScene(&scene);
-  game.loop();
+int main() {
+	tplay::Game game;         // Create game object
+	EmptyScene scene(game);   // Create scene object
+	game.setScene(&scene);    // Set our scene as current running scene
+	game.loop();              // Start game loop
 	return 0;
 }

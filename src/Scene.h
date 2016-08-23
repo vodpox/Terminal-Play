@@ -1,11 +1,19 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-class Scene{
+namespace tplay {
 	
-	public:
-		virtual void update(){}
+	class Scene {
+		
+		public:
+			virtual void onEnter() {}
+			virtual void onExit() {}
+			virtual void update() {}
+			virtual void draw() {}
+			virtual ~Scene() {}
+		
+	};
 	
-};
+}
 
 #endif
