@@ -2,3 +2,4 @@ build/
 obj/
 examples/*/*.o
 examples/*/game
+examples/*/game.exe

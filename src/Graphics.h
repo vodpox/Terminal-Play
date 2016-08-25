@@ -1,8 +1,10 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include <sys/ioctl.h>
-#include <termios.h>
+#ifdef __unix
+	#include <sys/ioctl.h>
+	#include <termios.h>
+#endif
 #include <vector>
 #include <string>
 
@@ -37,15 +39,16 @@ namespace tplay {
 			std::vector<ScreenUnit> lastScreen;
 			std::vector<Format> currentFormat;
 			
-			struct termios oldios;
-			struct winsize winSize;
+			#ifdef __unix
+				struct termios oldios;
+				struct winsize winSize;
+			#endif
 			int terminalSizeX;
 			int terminalSizeY;
 			
 			int lastTerminalSizeX = 0;
 			int lastTerminalSizeY = 0; // = 0 is for preserving previous terminal text when drawing first frame
-				
-			void resetTermios();
+			
 			bool isScreenChanged();
 			std::string printFormat(std::vector<Format> format);
 			
@@ -53,7 +56,6 @@ namespace tplay {
 		
 		public:
 			Graphics();
-			void setTermios();
 			void updateSize();
 			
 			int getTerminalSizeX();

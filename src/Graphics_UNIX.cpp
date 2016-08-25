@@ -1,3 +1,5 @@
+#ifdef __unix
+
 #include "Graphics.h"
 
 #include <cstdio>
@@ -44,11 +46,7 @@ namespace tplay {
 	
 	Graphics::Graphics() {
 		tcgetattr(0, &oldios);
-		setTermios();
-	}
-	
-	
-	void Graphics::setTermios() {
+		
 		struct termios newios;
 		newios = oldios;
 		
@@ -58,11 +56,7 @@ namespace tplay {
 		newios.c_cc[VTIME] = 0;
 		
 		tcsetattr(0, TCSANOW, &newios);
-	}
-	
-	
-	void Graphics::resetTermios() {
-		tcsetattr(0, TCSANOW, &oldios);
+		printf("\e[?25l");
 	}
 	
 	
@@ -187,8 +181,12 @@ namespace tplay {
 	
 	
 	Graphics::~Graphics() {
-		resetTermios();
+		// reset  termios and clear formatting
+		tcsetattr(0, TCSANOW, &oldios);
 		printf("\033[0m");
+		printf("\e[?25h");
 	}
 	
 }
+
+#endif

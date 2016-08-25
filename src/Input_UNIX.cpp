@@ -1,3 +1,5 @@
+#ifdef __unix
+
 #include "Input.h"
 #include <cstdio>
 
@@ -27,3 +29,5 @@ namespace tplay {
 	}
 	
 }
+
+#endif
