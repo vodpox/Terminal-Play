@@ -1,6 +1,6 @@
 # Terminal Play
 
-Framework/game engine for terminal/console/CLI games for UNIX like systems and Windows (although [not all features](https://github.com/edve98/Terminal-Play/wiki/Windows) are supported in Windows terminal). Right now it's in late alpha so expect to see some minor changes in the API. 1.0.0 Release should come in the week after Ludum Dare 36.
+Framework/game engine for terminal/console/CLI games for UNIX like systems and Windows (although [not all features](https://github.com/edve98/Terminal-Play/wiki/Windows) are supported in Windows terminal). Right now it's in late alpha so expect to see some minor changes in the API. 1.0.0 Release should come soon.
 
 ## Getting Started
 
